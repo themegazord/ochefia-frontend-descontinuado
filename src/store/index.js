@@ -14,10 +14,6 @@ export default createStore({
             {
                 url: '/signup',
                 name: 'Crie sua conta'
-            },
-            {
-                url: '/signin',
-                name: 'Login'
             }
         ]
     },

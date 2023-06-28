@@ -1,7 +1,8 @@
 <template>
   <div id="home">
       <div class="principal-left-container">
-          <h1 class="main-text-left-container">O sistema feito sob medida para controlar <span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
+          <!-- <span class="typed-text"></span><span class="cursor">&nbsp;</span> -->
+          <h1 class="main-text-left-container">O sistema feito sob medida para controlar seu bar.</h1>
           <h3 class="info-text-left-container">Controle seus pedidos delivery, vendas, estoque de uma forma fácil e rápida, no seu computador ou celular.</h3>
       </div>
       <div class="principal-right-container">
@@ -10,51 +11,50 @@
   </div>
 </template>
 <script>
-
 export default {
-  mounted () {
-      const typedTextSpan = document.querySelector(".typed-text");
-      const cursorSpan = document.querySelector(".cursor");
+  // mounted () {
+  //     const typedTextSpan = document.querySelector(".typed-text");
+  //     const cursorSpan = document.querySelector(".cursor");
 
-      const textArray = ["seu bar.", "seu restaurante.", "sua sorveteria.", "sua tabacaria.", "seu botequim."];
-      const typingDelay = 200;
-      const erasingDelay = 100;
-      const newTextDelay = 2000; // Delay between current and next text
-      let textArrayIndex = 0;
-      let charIndex = 0;
+  //     const textArray = ["seu bar.", "seu restaurante.", "sua sorveteria.", "sua tabacaria.", "seu botequim."];
+  //     const typingDelay = 200;
+  //     const erasingDelay = 100;
+  //     const newTextDelay = 2000; // Delay between current and next text
+  //     let textArrayIndex = 0;
+  //     let charIndex = 0;
 
-      function type() {
-      if (charIndex < textArray[textArrayIndex].length) {
-          if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-          typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-          charIndex++;
-          setTimeout(type, typingDelay);
-      }
-      else {
-          cursorSpan.classList.remove("typing");
-          setTimeout(erase, newTextDelay);
-      }
-      }
+  //     function type() {
+  //     if (charIndex < textArray[textArrayIndex].length) {
+  //         if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+  //         typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+  //         charIndex++;
+  //         setTimeout(type, typingDelay);
+  //     }
+  //     else {
+  //         cursorSpan.classList.remove("typing");
+  //         setTimeout(erase, newTextDelay);
+  //     }
+  //     }
 
-      function erase() {
-      if (charIndex > 0) {
-          if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-          typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
-          charIndex--;
-          setTimeout(erase, erasingDelay);
-      }
-      else {
-          cursorSpan.classList.remove("typing");
-          textArrayIndex++;
-          if(textArrayIndex>=textArray.length) textArrayIndex=0;
-          setTimeout(type, typingDelay + 1100);
-      }
-      }
+  //     function erase() {
+  //     if (charIndex > 0) {
+  //         if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+  //         typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
+  //         charIndex--;
+  //         setTimeout(erase, erasingDelay);
+  //     }
+  //     else {
+  //         cursorSpan.classList.remove("typing");
+  //         textArrayIndex++;
+  //         if(textArrayIndex>=textArray.length) textArrayIndex=0;
+  //         setTimeout(type, typingDelay + 1100);
+  //     }
+  //     }
 
-      document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
-      if(textArray.length) setTimeout(type, newTextDelay + 250);
-      });
-  }
+  //     document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+  //     if(textArray.length) setTimeout(type, newTextDelay + 250);
+  //     });
+  // }
 }
 </script>
 <style>

@@ -5,11 +5,16 @@
       </div>
       <div class="left-navbar">
           <router-link v-for="(link, index) in links" :to="link.url" :key="index" class="link">{{ link.name }}</router-link>
+          <login-modal-component />
       </div>
   </nav>
 </template>
 <script>
+import LoginModalComponent from '@/components/LoginModalComponent.vue'
 export default {
+  components: {
+    LoginModalComponent
+  },
   props: {
       links: {
           type: Object,
@@ -62,4 +67,5 @@ export default {
   font-family: var(--primary-font);
   text-decoration: none;
 }
+
 </style>
