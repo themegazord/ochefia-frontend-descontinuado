@@ -45,6 +45,7 @@
 </v-btn>
 </template>
 <script>
+import { verificaEmail } from '@/utils/verificarEmail'
 export default {
   data () {
     return {
@@ -52,13 +53,13 @@ export default {
       valid: false,
       email: '',
       emailRules: [
-        value => {
-          if (value) return true
+        email => {
+          if (email) return true
 
           return 'O email é obrigatório'
         },
-        value => {
-          if (/.+@.+\..+/.test(value)) return true
+        email => {
+          if (verificaEmail(email)) return true
 
           return 'O email não é válido'
         },
