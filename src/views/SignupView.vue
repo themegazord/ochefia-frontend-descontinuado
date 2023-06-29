@@ -99,6 +99,61 @@
               required
             ></v-text-field>
           </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-select
+              label="Como você define sua empresa"
+              v-model="companyData.howDoYouDescribeYourCompany"
+              :items="['Bar', 'Mercearia', 'Tabacaria', 'Restaurante', 'Botequim']"
+            ></v-select>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="personalData.password"
+              :rules="personalDataRules.passwordRules"
+              label="Insira sua senha *"
+              type="password"
+              required
+            ></v-text-field>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-file-input
+              v-model="companyData.companyLogo"
+              label="Sua empresa tem logo? Mostra pra gente"
+            ></v-file-input>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+          >
+            <v-text-field
+              v-model="personalData.verificationPassword"
+              :rules="personalDataRules.verificationPasswordRules"
+              label="Confirme sua senha *"
+              required
+            ></v-text-field>
+          </v-col>
+          <v-col
+            cols="12"
+            md="6"
+            class="signup-button"
+          >
+            <v-btn
+              variant="tonal"
+              size="x-large"
+              style="width: 100%"
+            >
+              Cadastrar
+            </v-btn>
+          </v-col>
         </v-row>
       </v-container>
     </v-form>
@@ -164,6 +219,26 @@ export default {
             if (verificationEmail === this.personalData.email) return true
             return 'O email de verificação não corresponde ao email fornecido.'
           }
+        ],
+        passwordRules: [
+          password => {
+            if (password) return true
+            return 'O campo de senha é obrigatório, por favor, insira.'
+          },
+          password => {
+            if (password?.length >= 10) return true
+            return 'A senha deve conter no minimo 10 caracteres'
+          }
+        ],
+        verificationPasswordRules: [
+          verificationPassword => {
+            if (verificationPassword) return true
+            return 'O campo de confirmação de senha é obrigatório, por favor, insira.'
+          },
+          verificationPassword => {
+            if (verificationPassword === this.personalData.password) return true
+            return 'A senha de verificação não corresponde a senha fornecida.'
+          }
         ]
       },
       companyData: {
@@ -223,5 +298,11 @@ export default {
   font-size: 1.625rem;
   text-align: center;
   padding: 2rem 0rem;
+}
+
+.signup-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
