@@ -34,9 +34,7 @@
         >
           <v-text-field
             v-model="companyData.companyName"
-            :rules="companyDataRules.companyNameRules"
             label="Insira o nome da sua empresa *"
-            required
           >
           </v-text-field>
         </v-col>
@@ -62,7 +60,6 @@
           :rules="companyDataRules.CNPJ"
           :counter="14"
           label="Insira o CNPJ da sua empresa"
-          required
         ></v-text-field>
         </v-col>
         <v-col
@@ -84,7 +81,6 @@
             v-model="companyData.companyEmail"
             :rules="companyDataRules.companyEmailRules"
             label="Insira o email da sua empresa *"
-            required
           ></v-text-field>
         </v-col>
         <v-col
@@ -105,7 +101,7 @@
           <v-select
             label="Como você define sua empresa"
             v-model="companyData.howDoYouDescribeYourCompany"
-            :items="['Bar', 'Mercearia', 'Tabacaria', 'Restaurante', 'Botequim']"
+            :items="['Bar', 'Mercearia', 'Tabacaria', 'Restaurante', 'Botequim', 'Outros']"
           ></v-select>
         </v-col>
         <v-col
@@ -115,8 +111,10 @@
           <v-text-field
             v-model="personalData.password"
             :rules="personalDataRules.passwordRules"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show ? 'text' : 'password'"
+            @click:append="show = !show"
             label="Insira sua senha *"
-            type="password"
             required
           ></v-text-field>
         </v-col>
@@ -136,6 +134,9 @@
           <v-text-field
             v-model="personalData.verificationPassword"
             :rules="personalDataRules.verificationPasswordRules"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show ? 'text' : 'password'"
+            @click:append="show = !show"
             label="Confirme sua senha *"
             required
           ></v-text-field>
@@ -149,6 +150,7 @@
             variant="tonal"
             size="x-large"
             style="width: 100%"
+            @click.prevent="signupData"
           >
             Cadastrar
           </v-btn>
@@ -165,6 +167,7 @@ import { verificaEmail } from '@/utils/verificarEmail'
 export default {
   data () {
     return {
+      show: false,
       personalData: {
         firstname: '',
         lastname: '',
@@ -244,40 +247,34 @@ export default {
         CNPJ: '',
         companyEmail: '',
         howDoYouDescribeYourCompany: '',
-        companyLogo: ''
+        companyLogo: []
       },
       companyDataRules: {
-        companyNameRules: [
-          companyName => {
-            if (companyName) return true
-            return 'O nome da empresa é obrigatório, por favor, insira.'
-          }
-        ],
         CNPJ: [
           cnpj => {
-            if (cnpj) return true
-            return 'O CNPJ da empresa é obrigatório, por favor, insira.'
-          },
-          cnpj => {
-            if (cnpj?.length == 14) return true
+            if (!cnpj || cnpj?.length == 14) return true
             return 'O CNPJ deve conter 14 caracteres'
           },
           cnpj => {
-            if (verificaCNPJ(cnpj)) return true
+            if (!cnpj || verificaCNPJ(cnpj)) return true
             return 'O CNPJ é inválido'
           }
         ],
         companyEmailRules: [
           companyEmail => {
-            if (companyEmail) return true
-            return 'O email da empresa é obrigatório, por favor, insira'
-          },
-          companyEmail => {
-            if (verificaEmail(companyEmail)) return true
+            if (!companyEmail || verificaEmail(companyEmail)) return true
             return 'O email inserido é invalido.'
           }
         ]
       }
+    }
+  },
+  methods: {
+    signupData () {
+      this.$emit('signupData', {
+        'personalData': Object.assign({}, this.personalData),
+        'companyData': Object.assign({}, this.companyData)
+      })
     }
   }
 }
